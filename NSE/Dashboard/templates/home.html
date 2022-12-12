@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bank Nifty</title>
+        <style>
+            .one
+            {
+                text-align: center;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width:40%;    
+                float: left;  
+            }
+            .two
+            {
+                text-align: center;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width:40%;
+                
+                float: right;
+            }
+            table {
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid orange;
+                padding: 5px;
+                text-align: left;
+              }
+            
+        </style>
+    </head>
+    <body>
+        <div id="bank-nifty" hx-get="{% url 'home' %}" hx-trigger="every 10s" hx-swap="innerHTML">
+            <center>
+                <h1>Bank Nifty Prices</h1>
+                            
+                <h4> ---------------------------- Last Updated at {{c_time}} --------------------------------- </h4>
+            </center>
+
+            <div class="one">
+                <center>
+
+                        <h3> Bank Nifty => Last Price: {{bnf_ul}}  | Nearest Strike: {{bnf_nearest}} </h3>
+        
+                        <table border ="1">
+                            <tr>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>CE</th>
+                                <th>PE</th>
+                    
+                            </tr>
+                            {% for price in Price_Info %}
+                                <tr>
+                                    <th>{{ price.0 }}</th>
+                                    <th>{{ price.1 }}</th>
+                                    <th>{{ price.2 }}</th>
+                                    <th>{{ price.3 }}</th>
+                    
+                                </tr>
+                            {% endfor %}
+                    
+                        </table>
+                            
+                        
+                            
+                        
+                    </center> 
+            </div>
+            <div class="two">
+                <center>
+                    <h3> Required Data </h3>
+                    <h4> Last 10 Values Of Given Data From Oldest To Newest </h4>
+                
+                    CE SUM  - {{Ce_Sum}}
+                    <br>
+                    PE SUM  - {{Pe_Sum}}
+                    <br>
+                    Difference - {{Difference}}
+                    <br>
+                    PCR  -  {{PCR}} 
+                    <br>
+                </center>
+            </div>
+        </div>
+        
+     </body>
+     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
+</html>
